@@ -1,0 +1,1 @@
+﻿package com.gamejam.display{	// Flash imports	import flash.display.MovieClip;	/*	 * A basic game object 	 */	public class GameObject extends MovieClip 	{			public function GameObject()		{			trace("GameObject.GameObject");		}	}}
