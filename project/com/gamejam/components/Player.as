@@ -1,4 +1,4 @@
-package com.gamejam 
+package com.gamejam.components 
 {
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -34,34 +34,14 @@ package com.gamejam
 		{
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyboardDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyboardUp);
-			this.addEventListener(Event.ENTER_FRAME, loop);
+			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 		
-		private function loop(e:Event):void 
+		private function onEnterFrame(e:Event):void 
 		{
 			//trace("_movementDirection: " + _movementDirection);
-			switch(_movementDirection)
-			{
-				case LEFT:
-					if (xVel > -maxVel) xVel-=2;
-					break;
-				case RIGHT:
-					if (xVel < maxVel) xVel+=2;
-					break;
-				case STILL:
-					if (xVel < 0)
-					{
-						xVel+=2;
-					}
-					else if (xVel > 0)
-					{
-						xVel-=2;
-					}
-					break;
-			}
-			//trace("xVel: " + xVel);
-			x += xVel;
-			changeState();
+			_move();
+			_changeState();
 		}
 		
 		private function onKeyboardDown(e:KeyboardEvent):void 
@@ -90,7 +70,7 @@ package com.gamejam
 			// at the end of the animation, remove eventlisteners, destroy movieclip
 		}
 		
-		private function changeState(): void
+		private function _changeState(): void
 		{
 			switch(temperature)
 			{
@@ -116,6 +96,31 @@ package com.gamejam
 					this.gotoAndPlay("boiled");
 					break;
 			}
+		}
+		
+		private function _move():void 
+		{
+			switch(_movementDirection)
+			{
+				case LEFT:
+					if (xVel > -maxVel) xVel-=2;
+					break;
+				case RIGHT:
+					if (xVel < maxVel) xVel+=2;
+					break;
+				case STILL:
+					if (xVel < 0)
+					{
+						xVel+=2;
+					}
+					else if (xVel > 0)
+					{
+						xVel-=2;
+					}
+					break;
+			}
+			this.rotation = -xVel;
+			x += xVel;
 		}
 	}
 
