@@ -17,22 +17,21 @@ package com.gamejam.datatypes
 		
 		private var _paused : Boolean = false;
 		
-		public function Camera(pos:Point)
+		public function Camera()
 		{
-			trace("Camera.Camera: (" + pos.x + "," + pos.y + ")");
-			this._position = new Point(pos.x, pos.y);
+			this._position = new Point(0, 230);
 		}
 		
 		public function incrementX(amount:Number):void 
 		{ 
 			var gos:Array = GameView.getInstance().gameObjects;
-			
+			this._position.x += amount;
 			if (!_paused)
 			{
 				for(var i = 0; i < gos.length; i++)
 				{
 					var go:GameObject = gos[i];
-					go.x += amount;
+					go.x -= amount;
 				}
 			}
 		}
@@ -41,14 +40,16 @@ package com.gamejam.datatypes
 		{ 
 			var gos:Array = GameView.getInstance().gameObjects;
 			
+			this._position.y += amount;
 			if (!_paused)
 			{
 				for(var i = 0; i < gos.length; i++)
-			{
-				var go:GameObject = gos[i];
-				go.y += amount;
+				{
+					var go:GameObject = gos[i];
+					go.y -= amount;
+				}
 			}
-			}
+			trace("Camera.incrementY: (" + _position.x + "," + _position.y + ")");
 		}
 	}
 }
