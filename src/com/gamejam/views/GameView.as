@@ -1,1 +1,104 @@
-﻿package com.gamejam.views{	// Flash imports	import flash.media.Sound;	import flash.display.Sprite;	import flash.display.MovieClip;	import flash.display.Stage;	import flash.geom.Point;		import com.gamejam.display.Player;	import com.gamejam.managers.LevelManager;	import com.gamejam.managers.SoundManager;	import com.gamejam.datatypes.Camera;	import com.gamejam.display.GameObject;		/**	 * Controls the game's views	 */	public class GameView 	{			public static const LAYER_FRAME: Number = 4;		public static const LAYER_FOREGROUND: Number = 3;		public static const LAYER_PLAYER: Number = 2;		public static const LAYER_BACKGROUND: Number = 1;		public static const LAYER_BACKGROUND_IMAGE: Number = 0;				private static var _instance:GameView;		private static var allowInstantiation:Boolean = true;			private var _player : Player;		private var _stage:Stage;		private var _mainCam:Camera;		private var _gameObjects:Array = new Array();				public function GameView()		{			if (!allowInstantiation) throw new Error("GameView.GameView: ERROR: Instantiation failed: Use GameView.getInstance()");					}				public static function getInstance():GameView 		{			if (_instance == null) 			{				_instance = new GameView();				allowInstantiation = false;			}						return _instance;		}				public function initialiseCamera():void		{			if(this._stage != null) this._mainCam = new Camera();			else throw new Error("GameView.initialiseCamera: ERROR: Need a reference to the stage to create the camera");					}				public function addGameObject(go:GameObject):Number		{			this._gameObjects.push(go);			return this._gameObjects.length;		}				public function startNewGame():void		{			_player = new Player();			LevelManager.getInstance().generateNewLevel(0);						var intro:Sound = new MusicIntro();			SoundManager.getInstance().play(intro, 1.0, 5000);		}				/**		 * Public getters/setters		 */		 		public function get camera():Camera { return this._mainCam; }				public function get gameObjects():Array { return this._gameObjects; }				public function set stage(stage:Stage):void { this._stage = stage; }		public function get stage():Stage { return this._stage; }				public function get player():Player { return _player; }	}}
+﻿package com.gamejam.views
+{
+	// Flash imports
+	import flash.media.Sound;
+	import flash.display.Sprite;
+	import flash.display.MovieClip;
+	import flash.display.Stage;
+	import flash.geom.Point;
+	
+	import com.gamejam.display.Player;
+	import com.gamejam.managers.LevelManager;
+	import com.gamejam.managers.SoundManager;
+	import com.gamejam.datatypes.Camera;
+	import com.gamejam.display.GameObject;
+	
+	/**
+	 * Controls the game's views
+	 */
+	public class GameView 
+	{	
+		private static var _instance:GameView;
+		private static var allowInstantiation:Boolean = true;
+	
+		private var _droplet:MovieClip;
+		private var _mainCam:Camera;
+		
+		private var _stage:Stage;
+		
+		private var _gameObjects:Array = new Array();
+		
+		private var _player : Player;
+		
+		public static const LAYER_FRAME: Number = 4;
+		public static const LAYER_FOREGROUND: Number = 3;
+		public static const LAYER_PLAYER: Number = 2;
+		public static const LAYER_BACKGROUND: Number = 1;
+		public static const LAYER_BACKGROUND_IMAGE: Number = 0;
+		
+		private var _progressBar : MovieClip;
+		
+		public function GameView()
+		{
+			if (!allowInstantiation) throw new Error("GameView.GameView: ERROR: Instantiation failed: Use GameView.getInstance()");			
+		}
+		
+		public static function getInstance():GameView 
+		{
+			if (_instance == null) 
+			{
+				_instance = new GameView();
+				allowInstantiation = false;
+			}
+			
+			return _instance;
+		}
+		
+		public function initialiseCamera():void
+		{
+			if(this._stage != null) 
+			{
+				this._mainCam = new Camera();
+			}
+			else throw new Error("GameView.initialiseCamera: ERROR: Need a reference to the stage to create the camera");			
+		}
+		
+		public function addGameObject(go:GameObject):Number
+		{
+			this._gameObjects.push(go);
+			return this._gameObjects.length;
+		}
+		
+		public function startNewGame():void
+		{
+			_player = new Player();
+			LevelManager.getInstance().generateNewLevel(0);
+			
+			var intro:Sound = new MusicIntro();
+			SoundManager.getInstance().play(intro, 1.0, 5000);
+		}
+		
+		public function setupGUI():void
+		{
+			trace("GameView::setupGUI");
+			_progressBar = new ProgressBar();
+			_progressBar.x = 40;
+			_progressBar.y = stage.stageHeight / 2;
+		}
+		
+		/**
+		 * Public getters/setters
+		 */
+		 
+		public function get camera():Camera { return this._mainCam; }
+		
+		public function get gameObjects():Array { return this._gameObjects; }
+		
+		public function set stage(stage:Stage):void { this._stage = stage; }
+		public function get stage():Stage { return this._stage; }
+		
+		public function get player():Player { return _player; }
+		
+		public function get progressBar():MovieClip { return _progressBar; }
+	}
+}
