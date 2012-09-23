@@ -34,12 +34,16 @@ package com.gamejam.datatypes
 					go.x -= amount;
 				}
 			}
+			else
+			{
+				GameView.getInstance().player.x += amount;
+			}
 		}
-		
+
 		public function incrementY(amount:Number):void 
 		{ 
 			var gos:Array = GameView.getInstance().gameObjects;
-			
+
 			this._position.y += amount;
 			if (!_paused)
 			{
@@ -48,6 +52,10 @@ package com.gamejam.datatypes
 					var go:GameObject = gos[i];
 					go.y -= amount;
 				}
+			}
+			else 
+			{
+				GameView.getInstance().player.y += amount;
 			}
 			trace("Camera.incrementY: (" + _position.x + "," + _position.y + ")");
 		}
