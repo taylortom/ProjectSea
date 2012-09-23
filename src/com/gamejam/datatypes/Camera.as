@@ -14,7 +14,9 @@ package com.gamejam.datatypes
 	public class Camera
 	{	
 		private var _position:Point
-	
+		
+		private var _paused : Boolean = false;
+		
 		public function Camera(pos:Point)
 		{
 			trace("Camera.Camera: (" + pos.x + "," + pos.y + ")");
@@ -25,10 +27,13 @@ package com.gamejam.datatypes
 		{ 
 			var gos:Array = GameView.getInstance().gameObjects;
 			
-			for(var i = 0; i < gos.length; i++)
+			if (!_paused)
 			{
-				var go:GameObject = gos[i];
-				go.x += amount;
+				for(var i = 0; i < gos.length; i++)
+				{
+					var go:GameObject = gos[i];
+					go.x += amount;
+				}
 			}
 		}
 		
@@ -36,10 +41,13 @@ package com.gamejam.datatypes
 		{ 
 			var gos:Array = GameView.getInstance().gameObjects;
 			
-			for(var i = 0; i < gos.length; i++)
+			if (!_paused)
+			{
+				for(var i = 0; i < gos.length; i++)
 			{
 				var go:GameObject = gos[i];
 				go.y += amount;
+			}
 			}
 		}
 	}
