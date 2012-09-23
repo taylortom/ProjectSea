@@ -30,10 +30,26 @@ package com.gamejam
 			
 			_view.startNewGame();
 			
-			//addChildAt(_view.player, GameView.DEPTH_PLAYER);
-			
-			addChild(LevelManager.getInstance().currentLevel)
+			this.attachGameObjects();
 		}
+		
+		private function attachGameObjects():void
+		{
+			var bg:MovieClip = new Background();
+			var bga:MovieClip = new MovieClip(); 
+			var fga:MovieClip = new MovieClip();
+			var frame:MovieClip = new Frame();
+			
+			addChildAt(bg, GameView.LAYER_BACKGROUND_IMAGE);
+			addChildAt(bga, GameView.LAYER_BACKGROUND);
+			addChildAt(_view.player, GameView.LAYER_PLAYER);
+			addChildAt(fga, GameView.LAYER_FOREGROUND);
+			addChildAt(frame, GameView.LAYER_FRAME);
+			
+			this.attachClouds();
+		}
+		
+		private function attachClouds();
 		
 		/**
 		 * Called every frame
@@ -43,7 +59,7 @@ package com.gamejam
 			//trace("Main.update: " + e);
 			
 			// scroll the camera
-			this._view.camera.incrementY(-5);
+			this._view.camera.incrementY(5);
 			
 			//this.cleanUp();
 		}
