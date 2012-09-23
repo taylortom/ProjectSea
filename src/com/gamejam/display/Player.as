@@ -80,12 +80,23 @@
 			_movementDirection = STILL;
 		}
 		
-		public function kill():void
+		/*public function kill():void
 		{
-			trace("Dead");
-			// play death animation
-			
-			// at the end of the animation, remove eventlisteners, destroy movieclip
+			1. Play death animation
+			2. (at the end of the animation) remove eventlisteners & destroy movieclip
+			3. Respawn at top of screen(?)
+		}*/
+		
+		public function increaseTemperature():void
+		{
+			temperature++;
+			this._changeState();
+		}
+		
+		public function decreaseTemperature():void
+		{
+			temperature--;
+			this._changeState();
 		}
 		
 		private function _changeState(): void
@@ -112,6 +123,7 @@
 					break;
 				case 3:
 					this.gotoAndPlay("boiled");
+					// respawn
 					break;
 			}
 		}
@@ -127,14 +139,8 @@
 					if (xVel < maxVel) xVel+=2;
 					break;
 				case STILL:
-					if (xVel < 0)
-					{
-						xVel+=2;
-					}
-					else if (xVel > 0)
-					{
-						xVel-=2;
-					}
+					if (xVel < 0) xVel+=2;
+					else if (xVel > 0) xVel-=2;
 					break;
 			}
 			this.rotation = -xVel;
