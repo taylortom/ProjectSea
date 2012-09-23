@@ -67,33 +67,27 @@ package com.gamejam.display
 			this._starterCloud.x = GameView.getInstance().stage.stageWidth/2;
 			this._starterCloud.y = 190;
 			addChildAt(this._starterCloud, GameView.LAYER_FOREGROUND);
-			
-			var yPos:Number = 200;
-			
-			for(var i = 0; i < 10; i++)
-			{
-				var xPos:Number = 200;
-					
-				for(var i = 0; i < 10; i++)
-				{
-					var front:Boolean = false;
-								
-					var cloud:GameObject = new Cloud();
-					cloud.x = xPos;
-					cloud.y = yPos;
-				
-					if(front) addChildAt(cloud, GameView.LAYER_FOREGROUND);
-					else addChildAt(cloud, GameView.LAYER_BACKGROUND);
-				
-					front = !front;
-					
-					yPos += 250;
-				}
-			}
-			
+						
 			this._sea = new Sea();
 			this._sea.y = this._bg.y + this._bg.height - this._sea.height;
 			addChildAt(this._sea, GameView.LAYER_FOREGROUND);
+				
+			var front:Boolean = false;
+						
+			for(var i = 0; i < 20; i++)
+			{
+				var xPos:Number = Math.random()*this._bg.width;
+				var yPos:Number = Math.random()*this._bg.height-(this._sea.height*2);
+								
+				var cloud:GameObject = new Cloud();
+				cloud.x = xPos;
+				cloud.y = yPos;
+			
+				if(front) addChildAt(cloud, GameView.LAYER_FOREGROUND);
+				else addChildAt(cloud, GameView.LAYER_BACKGROUND);
+			
+				front = !front;
+			}
 		}
 	}
 
