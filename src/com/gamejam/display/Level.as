@@ -48,21 +48,32 @@ package com.gamejam.display
 		
 		private function attachGameObjects():void
 		{
-			_starterCloud = new StartCloud();
-			_starterCloud.x = GameView.getInstance().stage.width / 2;
-			_starterCloud.y = 190;
-			addChildAt(_starterCloud, GameView.LAYER_FOREGROUND);
+			this._starterCloud = new StartCloud();
+			this._starterCloud.x = GameView.getInstance().stage.stageWidth/2;
+			this._starterCloud.y = 190;
+			addChildAt(this._starterCloud, GameView.LAYER_FOREGROUND);
+			
+			var yPos:Number = 200;
 			
 			for(var i = 0; i < 10; i++)
 			{
-				var layer:Number = Math.round(Math.random());
+				var xPos:Number = 200;
+					
+				for(var i = 0; i < 10; i++)
+				{
+					var front:Boolean = false;
+								
+					var cloud:GameObject = new Cloud();
+					cloud.x = xPos;
+					cloud.y = yPos;
 				
-				var cloud:GameObject = new Cloud();
-				cloud.x = 150 * (i + 1);
-				cloud.y = 300 * (i + 1);
+					if(front) addChildAt(cloud, GameView.LAYER_FOREGROUND);
+					else addChildAt(cloud, GameView.LAYER_BACKGROUND);
 				
-				if(layer == 0) addChildAt(cloud, GameView.LAYER_FOREGROUND);
-				else addChildAt(cloud, GameView.LAYER_BACKGROUND);
+					front = !front;
+					
+					yPos += 250;
+				}
 			}
 			
 			this._sea = new Sea();

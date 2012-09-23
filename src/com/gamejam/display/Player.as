@@ -48,7 +48,7 @@
 		{
 			trace("Player::_init");
 			var _stage : Stage = GameView.getInstance().stage;
-			this.x = _stage.width / 2;
+			this.x = _stage.stageWidth / 2;
 			this.y = 230;
 			_stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyboardDown);
 			_stage.addEventListener(KeyboardEvent.KEY_UP, onKeyboardUp);
