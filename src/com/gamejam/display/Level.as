@@ -32,20 +32,15 @@ package com.gamejam.display
 			for(var i = 0; i < 10; i++)
 			{
 				var cloud:GameObject = new Cloud();
-				cloud.x = 150*(i+1);
-				cloud.y = 300*(i+1);
-				/*var depthIndex : int = Math.round(Math.random());
-				var depthOptions : Array = new Array(GameView.DEPTH_BACKGROUND, GameView.DEPTH_FOREGROUND);
-				trace(depthOptions[depthIndex]);*/
-				
-				var depthIndex : int = Math.round(Math.random());
-				
-				if (depthIndex == 0)
-				{
-					addChildAt(cloud, 0);
-				}
-				else addChild(cloud);
+				cloud.x = 150 * (i + 1);
+				cloud.y = 300 * (i + 1);
+				addChild(cloud);
 			}
+			
+			var sea:GameObject = new Sea();
+			sea.x = GameView.getInstance().stage.width / 2;
+			sea.y = 2000;
+			addChild(sea);
 		}
 	}
 
