@@ -1,6 +1,7 @@
 package com.gamejam
 {
 	// Flash imports
+	import com.gamejam.managers.LevelManager;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
@@ -24,18 +25,12 @@ package com.gamejam
 			
 			this._view.stage = stage;
 			this._view.initialiseCamera();
-					
-			for(var i = 0; i < 10; i++)
-			{
-				var cloud:GameObject = new Cloud();
-				cloud.x = 150*(i+1);
-				cloud.y = 300*(i+1);
 				
-				this._view.addGameObject(cloud);
-				addChild(cloud);
-			}
-			
 			stage.addEventListener(Event.ENTER_FRAME, this.update);
+			
+			_view.startNewGame();
+			
+			addChild(_view.player);
 		}
 		
 		/**
