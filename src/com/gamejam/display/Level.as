@@ -1,7 +1,9 @@
 package com.gamejam.display 
 {
+	import com.gamejam.datatypes.Camera;
 	import com.gamejam.views.GameView;
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.sampler.NewObjectSample;
 	/**
 	 * Stores level set up, including obstacles, start and end
@@ -22,10 +24,22 @@ package com.gamejam.display
 		public function Level(_difficulty : int) 
 		{
 			super();
+			trace("Level::Level");
 			this._init();
 			this._difficulty = _difficulty;
 			
 			this.attachGameObjects();
+			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+		}
+		
+		private function onEnterFrame(e:Event):void 
+		{
+			var cam : Camera = GameView.getInstance().camera;
+			trace(_sea.y + _sea.height);
+			if (cam.position.y >= this._bg.height)
+			{
+				cam.paused = true;
+			}
 		}
 		
 		private function _init()
@@ -33,6 +47,7 @@ package com.gamejam.display
 			this._view = GameView.getInstance();
 			
 			this._bg = new Background();
+			trace(this._bg);
 			this._frame = new Frame();
 			
 			// placeholders

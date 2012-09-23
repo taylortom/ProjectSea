@@ -19,7 +19,7 @@ package com.gamejam.datatypes
 		
 		public function Camera()
 		{
-			this._position = new Point(0, 230);
+			this._position = new Point(0, 650);
 		}
 		
 		public function incrementX(amount:Number):void 
@@ -58,6 +58,21 @@ package com.gamejam.datatypes
 				GameView.getInstance().player.y += amount;
 			}
 			trace("Camera.incrementY: (" + _position.x + "," + _position.y + ")");
+		}
+		
+		public function get position():Point 
+		{
+			return _position;
+		}
+		
+		public function get paused():Boolean 
+		{
+			return _paused;
+		}
+		
+		public function set paused(value:Boolean):void 
+		{
+			_paused = value;
 		}
 	}
 }
