@@ -9,6 +9,7 @@ package com.gamejam.managers
 	{
 		private static var _instance:LevelManager;
 		private static var allowInstantiation:Boolean = true;
+		private var _currentLevel : Level;
 		
 		public function LevelManager() 
 		{
@@ -28,7 +29,13 @@ package com.gamejam.managers
 		
 		public function generateNewLevel(difficulty : int):Level
 		{
-			return new Level(difficulty);
+			_currentLevel = new Level(difficulty);
+			return _currentLevel
+		}
+		
+		public function get currentLevel():Level 
+		{
+			return _currentLevel;
 		}
 		
 	}

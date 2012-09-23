@@ -17,7 +17,7 @@ package com.gamejam
 	{	
 		private var _model:GameModel;
 		private var _view:GameView;
-	
+			
 		public function Main()
 		{
 			this._model = GameModel.getInstance();
@@ -25,12 +25,14 @@ package com.gamejam
 			
 			this._view.stage = stage;
 			this._view.initialiseCamera();
-				
+			
 			stage.addEventListener(Event.ENTER_FRAME, this.update);
 			
 			_view.startNewGame();
 			
-			addChild(_view.player);
+			//addChildAt(_view.player, GameView.DEPTH_PLAYER);
+			
+			addChild(LevelManager.getInstance().currentLevel)
 		}
 		
 		/**
