@@ -10,8 +10,6 @@ package com.gamejam.managers
 		private static var _instance:LevelManager;
 		private static var allowInstantiation:Boolean = true;
 		
-		private static const PLAYER_DEPTH: Number = 40;
-		
 		public function LevelManager() 
 		{
 			if (!allowInstantiation) throw new Error("LevelManager.LevelManager: ERROR: Instantiation failed: Use LevelManager.getInstance()");	

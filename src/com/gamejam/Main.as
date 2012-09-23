@@ -43,7 +43,7 @@ package com.gamejam
 			// scroll the camera
 			this._view.camera.incrementY(-5);
 			
-			this.cleanUp();
+			//this.cleanUp();
 		}
 		
 		public function cleanUp():void

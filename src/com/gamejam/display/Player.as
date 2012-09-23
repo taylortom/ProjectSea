@@ -1,6 +1,8 @@
 ﻿package com.gamejam.display 
 {
+	import com.gamejam.views.GameView;
 	import flash.display.MovieClip;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
@@ -10,6 +12,18 @@
 	 */
 	public class Player extends MovieClip
 	{
+		//player states
+		private static var BIRTH : int = 0;
+		private static var FROZEN : int = 1;
+		private static var FREEZING2 : int = 2;
+		private static var FREEZING1 : int = 3;
+		private static var WATER : int = 4;
+		private static var BOILING1 : int = 5;
+		private static var BOILING2 : int = 6;
+		private static var BOILED : int = 7;
+		
+		private var _state : int;
+		
 		private var _movementDirection : int;
 		private static var LEFT : int = -1;
 		private static var STILL : int = 0;
@@ -32,14 +46,18 @@
 		
 		private function _init():void 
 		{
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyboardDown);
-			stage.addEventListener(KeyboardEvent.KEY_UP, onKeyboardUp);
+			trace("Player::_init");
+			var _stage : Stage = GameView.getInstance().stage;
+			this.x = _stage.width / 2;
+			this.y = 230;
+			_stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyboardDown);
+			_stage.addEventListener(KeyboardEvent.KEY_UP, onKeyboardUp);
 			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 		
 		private function onEnterFrame(e:Event):void 
 		{
-			//trace("_movementDirection: " + _movementDirection);
+			//trace("Player::onEnterFrame");
 			_move();
 			_changeState();
 		}
