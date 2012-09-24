@@ -71,7 +71,9 @@
 		
 		public function startNewGame():void
 		{
-			_player = new Player();
+			this._player = new Player();
+			this._player.moveable = false;
+			
 			LevelManager.getInstance().generateNewLevel(0);
 			
 			var intro:Sound = new MusicIntro();

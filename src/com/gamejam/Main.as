@@ -3,11 +3,15 @@
 	// Flash imports
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
+	import flash.ui.Keyboard;
 	import flash.utils.Timer;
+	import flash.media.Sound;
 	
 	import com.gamejam.managers.LevelManager;
 	import com.gamejam.managers.CollisionManager;
+	import com.gamejam.managers.SoundManager;
 	import com.gamejam.display.GameObject;
 	import com.gamejam.models.GameModel;
 	import com.gamejam.views.GameView;
@@ -32,8 +36,6 @@
 			this._view.initialiseCamera();
 			_view.setupGUI();
 			
-			stage.addEventListener(Event.ENTER_FRAME, this._update);
-			
 			this._collisionTimer = new Timer(1000,1);
 			this._collisionTimer.addEventListener("timer", this._onCollisionTimerComplete);
 			
@@ -41,7 +43,26 @@
 			
 			// add the level 
 			addChild(LevelManager.getInstance().currentLevel);
-			addChild(_view.progressBar);
+			
+			stage.addEventListener(KeyboardEvent.KEY_UP, this.onKeyboardUp);
+		}
+		
+		private function onKeyboardUp(e:KeyboardEvent):void
+		{
+			trace(e);
+			
+			if(e.keyCode == Keyboard.SPACE)
+			{
+				stage.removeEventListener(KeyboardEvent.KEY_UP, this.onKeyboardUp);
+				
+				addChild(this._view.progressBar);
+				stage.addEventListener(Event.ENTER_FRAME, this._update);
+				this._view.player.moveable = true;
+				
+				var musicLoop:Sound = new MusicLoop();
+				var sm:SoundManager = SoundManager.getInstance();
+				sm.crossfade(musicLoop, 3000);
+			}
 		}
 		
 		/**

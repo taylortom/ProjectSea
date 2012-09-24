@@ -70,12 +70,16 @@
 		{
 			this._starterCloud = new StartCloud();
 			this._starterCloud.x = GameView.getInstance().stage.stageWidth/2;
-			this._starterCloud.y = 190;
+			this._starterCloud.y = this._view.stage.stageHeight/2;
 			addChildAt(this._starterCloud, GameView.LAYER_FOREGROUND);
-						
-			this._sea = new Sea();
+			
+			this._sea = new SeaFront();			
 			this._sea.y = this._bg.y + this._bg.height - this._sea.height;
 			addChildAt(this._sea, GameView.LAYER_FOREGROUND);
+		
+			var seaBehind = new SeaBehind();
+			seaBehind.y = this._sea.y;
+			addChildAt(seaBehind, GameView.LAYER_BACKGROUND);
 				
 			var front:Boolean = false;
 			
@@ -83,18 +87,18 @@
 			for(var i = 0; i < 20; i++)
 			{
 				var xPos:Number = Math.random()*this._bg.width;
-				var yPos:Number = Math.random()*this._bg.height-(this._sea.height*2);
-								
+				var yPos:Number = Math.random()*(this._bg.height-(this._sea.height*2 + this._view.stage.stageHeight*1.5));
+				yPos += this._view.stage.stageHeight*1.5;
+				
 				var cloud:GameObject = new Cloud();
 				cloud.x = xPos;
 				cloud.y = yPos;
 			
+				trace(front);
+			
 				if(front) addChildAt(cloud, GameView.LAYER_FOREGROUND);
 				else addChildAt(cloud, GameView.LAYER_BACKGROUND);
-				
-				addChildAt(cloud, GameView.LAYER_BACKGROUND);		
-			
-			
+							
 				front = !front;
 			}
 			
@@ -102,7 +106,8 @@
 			for(var j = 0; j < 5; j++)
 			{
 				var xPos:Number = Math.random()*this._bg.width;
-				var yPos:Number = Math.random()*this._bg.height-(this._sea.height*2);
+				var yPos:Number = Math.random()*(this._bg.height-(this._sea.height*2 + this._view.stage.stageHeight*1.5));
+				yPos += this._view.stage.stageHeight*1.5;
 								
 				var hotTrail:TemperatureObject = new HotTrail();
 				hotTrail.x = xPos;

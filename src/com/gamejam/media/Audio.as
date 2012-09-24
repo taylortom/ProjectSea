@@ -70,7 +70,10 @@ package com.gamejam.media
 					this._channel.soundTransform = this._transform;	
 
 					this._fadeOutTimer = new Timer(30,(duration/30));
-					this._volumeIncrement *= -1;
+					this._volumeIncrement = (1/(duration/30));
+					
+					trace("this._volumeIncrement: " + this._volumeIncrement + " -- " + duration1/)
+					
 					this._fadeOutTimer.addEventListener("timer", this._fadeLoop);
 					this._fadeOutTimer.start();
 				}
@@ -80,6 +83,7 @@ package com.gamejam.media
 		private function _fadeLoop(e:TimerEvent)
 		{
 			this._transform.volume += this._volumeIncrement;
+			trace(this._transform.volume);
 			this._channel.soundTransform = this._transform;	
 		}
 		
