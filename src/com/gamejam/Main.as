@@ -4,6 +4,7 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.utils.Timer;
 	
 	import com.gamejam.managers.LevelManager;
 	import com.gamejam.managers.CollisionManager;
@@ -18,6 +19,9 @@
 	{	
 		private var _model:GameModel;
 		private var _view:GameView;
+		
+		private var _ignoreCollisions:Boolean = false;
+		var _collisionTimer:Timer;
 			
 		public function Main()
 		{
@@ -26,12 +30,16 @@
 			
 			this._view.stage = stage;
 			this._view.initialiseCamera();
-			this._view.setupGUI();
+			_view.setupGUI();
 			
-			stage.addEventListener(Event.ENTER_FRAME, this.update);
+			stage.addEventListener(Event.ENTER_FRAME, this._update);
+			
+			this._collisionTimer = new Timer(1000,1);
+			this._collisionTimer.addEventListener("timer", this._onCollisionTimerComplete);
 			
 			_view.startNewGame();
 			
+			// add the level 
 			addChild(LevelManager.getInstance().currentLevel);
 			addChild(_view.progressBar);
 		}
@@ -39,22 +47,29 @@
 		/**
 		 * Called every frame
 		 */ 
-		private function update(e:Event):void
+		private function _update(e:Event):void
 		{			
 			// scroll the camera
-			this._view.camera.incrementY(5);
+			this._view.camera.incrementY(7);
 			
-			/*var collisions:Array = CollisionManager.getInstance().checkForCollisions();
-			if(collisions.length > 0)
+			var collisions:Array = CollisionManager.getInstance().checkForCollisions();
+			if(!this._ignoreCollisions && collisions.length > 0)
 			{
-				trace("COLLISION");
-				// this._view.player.
-			}*/
+				this._ignoreCollisions = true;
+				this._collisionTimer.start();
+				
+				this._view.player.increaseTemperature();
+			}
 			
 			//this.cleanUp();
 		}
 		
-		public function cleanUp():void
+		private function _onCollisionTimerComplete(e:Event)
+		{
+			this._ignoreCollisions = false;
+		}
+		
+		private function _cleanUp():void
 		{
 			for(var i = 0; i < this._view.gameObjects.length; i++)
 			{	
