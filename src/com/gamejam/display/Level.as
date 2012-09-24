@@ -1,6 +1,7 @@
 ﻿package com.gamejam.display 
 {
 	import com.gamejam.datatypes.Camera;
+	import com.gamejam.display.TemperatureObject;
 	import com.gamejam.utils.map;
 	import com.gamejam.views.GameView;
 	import flash.display.MovieClip;
@@ -12,13 +13,11 @@
 	public class Level extends MovieClip
 	{
 		private var _bg:MovieClip;
-		private var _frame:MovieClip;
 		private var _sea:GameObject;
-		
+		private var _frame:MovieClip;
 		private var _starterCloud : GameObject;
 		
 		private var _view : GameView;
-		
 		private var _difficulty : int;
 		
 		public function Level(_difficulty : int) 
@@ -35,15 +34,15 @@
 		private function onEnterFrame(e:Event):void 
 		{
 			var cam : Camera = GameView.getInstance().camera;
-			trace(_sea.y + _sea.height);
+
 			if (cam.position.y >= this._bg.height)
 			{
 				cam.paused = true;
 			}
 			
-			if (!cam.paused) {
+			if (!cam.paused) 
+			{
 				var progress_mc = GameView.getInstance().progressBar.progress_mc;
-				trace("progress_mc: " + progress_mc);
 				progress_mc.y = map(cam.position.y, 650, this._bg.height+650, -180, 140);
 			}
 		}
@@ -98,19 +97,19 @@
 			
 				front = !front;
 			}
-			/*
+			
 			// some hot trails			
 			for(var j = 0; j < 5; j++)
 			{
 				var xPos:Number = Math.random()*this._bg.width;
 				var yPos:Number = Math.random()*this._bg.height-(this._sea.height*2);
 								
-				var hotTrail:GameObject = new HotTrail();
+				var hotTrail:TemperatureObject = new HotTrail();
 				hotTrail.x = xPos;
 				hotTrail.y = yPos;
 			
 				addChildAt(hotTrail, GameView.LAYER_FOREGROUND);
-			}*/
+			}
 		}	
 	}
 }

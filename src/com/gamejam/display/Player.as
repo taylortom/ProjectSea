@@ -80,12 +80,16 @@
 			_movementDirection = STILL;
 		}
 		
-		/*public function kill():void
+		public function kill():void
 		{
+			trace("Player.kill");
+			
+			/*
 			1. Play death animation
 			2. (at the end of the animation) remove eventlisteners & destroy movieclip
 			3. Respawn at top of screen(?)
-		}*/
+			*/
+		}
 		
 		public function increaseTemperature():void
 		{
