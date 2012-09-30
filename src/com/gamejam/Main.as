@@ -49,7 +49,7 @@
 		
 		private function onKeyboardUp(e:KeyboardEvent):void
 		{
-			trace(e);
+			//trace(e);
 			
 			if(e.keyCode == Keyboard.SPACE)
 			{

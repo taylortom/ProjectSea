@@ -7,6 +7,7 @@
 	import flash.display.Stage;
 	import flash.geom.Point;
 	
+	import flash.geom.Point;
 	import com.gamejam.display.Player;
 	import com.gamejam.managers.LevelManager;
 	import com.gamejam.managers.SoundManager;
@@ -71,7 +72,12 @@
 		
 		public function startNewGame():void
 		{
+			var playerPos:Point = new Point();
+			playerPos.x = _stage.stageWidth / 2;
+			playerPos.y = 230;			
+			
 			this._player = new Player();
+			this._player.position = playerPos;
 			this._player.moveable = false;
 			
 			LevelManager.getInstance().generateNewLevel(0);
@@ -82,7 +88,8 @@
 		
 		public function setupGUI():void
 		{
-			trace("GameView::setupGUI");
+			//trace("GameView::setupGUI");
+			
 			_progressBar = new ProgressBar();
 			_progressBar.x = 40;
 			_progressBar.y = stage.stageHeight / 2;

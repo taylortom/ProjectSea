@@ -52,7 +52,6 @@
 			this._view = GameView.getInstance();
 			
 			this._bg = new Background();
-			trace(this._bg);
 			this._frame = new Frame();
 			
 			// placeholders

@@ -52,9 +52,7 @@ package com.gamejam.datatypes
 					go.y -= amount;
 				}
 			}
-			else if(player.moveable) player.y += amount;
-			
-			//trace("Camera.incrementY: (" + _position.x + "," + _position.y + ")");
+			else if(player.moveable) player.y += amount;			
 		}
 		
 		public function get position():Point { return _position; }
