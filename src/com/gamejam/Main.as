@@ -56,6 +56,8 @@
 				stage.removeEventListener(KeyboardEvent.KEY_UP, this.onKeyboardUp);
 				
 				addChild(this._view.progressBar);
+				addChild(this._view.tempGauge);
+				
 				stage.addEventListener(Event.ENTER_FRAME, this._update);
 				this._view.player.moveable = true;
 				

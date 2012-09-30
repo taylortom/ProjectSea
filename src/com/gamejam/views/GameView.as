@@ -6,9 +6,10 @@
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.geom.Point;
-	
 	import flash.geom.Point;
+	
 	import com.gamejam.display.Player;
+	import com.gamejam.display.TemperatureGauge;
 	import com.gamejam.managers.LevelManager;
 	import com.gamejam.managers.SoundManager;
 	import com.gamejam.datatypes.Camera;
@@ -29,7 +30,8 @@
 		
 		private var _gameObjects:Array = new Array();
 		
-		private var _player : Player;
+		private var _player:Player;
+		private var _tempGauge:TemperatureGauge;
 		
 		public static const LAYER_FRAME: Number = 4;
 		public static const LAYER_FOREGROUND: Number = 3;
@@ -93,6 +95,8 @@
 			_progressBar = new ProgressBar();
 			_progressBar.x = 40;
 			_progressBar.y = stage.stageHeight / 2;
+			
+			this._tempGauge = new TemperatureGauge();
 		}
 		
 		/**
@@ -109,5 +113,7 @@
 		public function get player():Player { return _player; }
 		
 		public function get progressBar():MovieClip { return _progressBar; }
+		
+		public function get tempGauge():TemperatureGauge { return _tempGauge; }
 	}
 }
