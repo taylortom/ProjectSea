@@ -71,7 +71,7 @@
 		private function _update(e:Event):void
 		{			
 			// scroll the camera
-			this._view.camera.incrementY(7);
+			this._view.camera.incrementY(5);
 			
 			var collisions:Array = CollisionManager.getInstance().checkForCollisions();
 			if(!this._ignoreCollisions && collisions.length > 0)

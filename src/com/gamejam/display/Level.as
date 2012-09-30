@@ -1,6 +1,7 @@
 ﻿package com.gamejam.display 
 {
 	import com.gamejam.datatypes.Camera;
+	import com.gamejam.display.Cloud;
 	import com.gamejam.display.TemperatureObject;
 	import com.gamejam.utils.map;
 	import com.gamejam.views.GameView;
@@ -83,18 +84,15 @@
 			var front:Boolean = false;
 			
 			// some clouds			
-			for(var i = 0; i < 20; i++)
+			for(var i = 0; i < 10; i++)
 			{
 				var xPos:Number = Math.random()*this._bg.width;
 				var yPos:Number = Math.random()*(this._bg.height-(this._sea.height*2 + this._view.stage.stageHeight*1.5));
 				yPos += this._view.stage.stageHeight*1.5;
 				
-				var cloud:GameObject = new Cloud();
+				var cloud:Cloud = new Cloud();
 				cloud.x = xPos;
 				cloud.y = yPos;
-			
-				trace(front);
-			
 				if(front) addChildAt(cloud, GameView.LAYER_FOREGROUND);
 				else addChildAt(cloud, GameView.LAYER_BACKGROUND);
 							
