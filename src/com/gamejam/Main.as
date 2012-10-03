@@ -76,11 +76,15 @@
 			this._view.camera.incrementY(5);
 			
 			var collisions:Array = CollisionManager.getInstance().checkForCollisions();
-			if(!this._ignoreCollisions && collisions.length > 0)
+			/*if(!this._ignoreCollisions && collisions.length > 0)
 			{
 				this._ignoreCollisions = true;
 				this._collisionTimer.start();
 				
+				this._view.player.increaseTemperature();
+			}*/
+			
+			if (collisions.length > 0) {
 				this._view.player.increaseTemperature();
 			}
 			
