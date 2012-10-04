@@ -1,6 +1,7 @@
 ﻿package com.gamejam.views
 {
 	// Flash imports
+	import com.gamejam.models.GameModel;
 	import flash.media.Sound;
 	import flash.display.Sprite;
 	import flash.display.MovieClip;
@@ -22,7 +23,7 @@
 	{	
 		private static var _instance:GameView;
 		private static var allowInstantiation:Boolean = true;
-	
+			
 		private var _droplet:MovieClip;
 		private var _mainCam:Camera;
 		
@@ -40,6 +41,8 @@
 		public static const LAYER_BACKGROUND_IMAGE: Number = 0;
 		
 		private var _progressBar : MovieClip;
+		
+		private var _pausedMC : MovieClip;
 		
 		public function GameView()
 		{
@@ -92,11 +95,30 @@
 		{
 			//trace("GameView::setupGUI");
 			
-			_progressBar = new ProgressBar();
-			_progressBar.x = 40;
-			_progressBar.y = stage.stageHeight / 2;
+			this._progressBar = new ProgressBar();
+			this._progressBar.x = 40;
+			this._progressBar.y = stage.stageHeight / 2;
 			
 			this._tempGauge = new TemperatureGauge();
+			
+			this._pausedMC = new Paused();
+			this._pausedMC.x = stage.stageWidth / 2;
+			this._pausedMC.y = stage.stageHeight / 2;
+			this._pausedMC.visible = false;
+		}
+		
+		public function pause():void
+		{
+			this.pausedMC.visible = true;
+			this._mainCam.paused = true;
+			this._player.moveable = false;
+		}
+		
+		public function unpause():void
+		{
+			this.pausedMC.visible = false;
+			this._mainCam.paused = false;
+			this._player.moveable = true;
 		}
 		
 		/**
@@ -115,5 +137,7 @@
 		public function get progressBar():MovieClip { return _progressBar; }
 		
 		public function get tempGauge():TemperatureGauge { return _tempGauge; }
+		
+		public function get pausedMC():MovieClip { return _pausedMC; }
 	}
 }

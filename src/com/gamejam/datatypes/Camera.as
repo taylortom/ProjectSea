@@ -25,9 +25,10 @@ package com.gamejam.datatypes
 		public function incrementX(amount:Number):void 
 		{ 
 			var gos:Array = GameView.getInstance().gameObjects;
-			this._position.x += amount;
+			
 			if (!_paused)
 			{
+				this._position.x += amount;
 				for(var i = 0; i < gos.length; i++)
 				{
 					var go:GameObject = gos[i];
@@ -41,11 +42,10 @@ package com.gamejam.datatypes
 		{ 
 			var gos:Array = GameView.getInstance().gameObjects;
 			var player:Player = GameView.getInstance().player;
-
-			this._position.y += amount;
 			
 			if (!_paused)
 			{
+				this._position.y += amount;
 				for(var i = 0; i < gos.length; i++)
 				{
 					var go:GameObject = gos[i];

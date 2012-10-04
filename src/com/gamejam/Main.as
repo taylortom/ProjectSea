@@ -34,10 +34,7 @@
 			
 			this._view.stage = stage;
 			this._view.initialiseCamera();
-			_view.setupGUI();
-			
-			this._collisionTimer = new Timer(1000,1);
-			this._collisionTimer.addEventListener("timer", this._onCollisionTimerComplete);
+			this._view.setupGUI();
 			
 			_view.startNewGame();
 			
@@ -53,17 +50,34 @@
 			
 			if(e.keyCode == Keyboard.SPACE)
 			{
-				stage.removeEventListener(KeyboardEvent.KEY_UP, this.onKeyboardUp);
-				
-				addChild(this._view.progressBar);
-				addChild(this._view.tempGauge);
-				
-				stage.addEventListener(Event.ENTER_FRAME, this._update);
-				this._view.player.moveable = true;
-				
-				var musicLoop:Sound = new MusicLoop();
-				var sm:SoundManager = SoundManager.getInstance();
-				sm.crossfade(musicLoop, 3000);
+				if (!this._model.started)
+				{
+					addChild(this._view.progressBar);
+					addChild(this._view.pausedMC);
+					addChild(this._view.tempGauge);
+					
+					stage.addEventListener(Event.ENTER_FRAME, this._update);
+					this._view.player.moveable = true;
+					
+					var musicLoop:Sound = new MusicLoop();
+					var sm:SoundManager = SoundManager.getInstance();
+					sm.crossfade(musicLoop, 3000);
+					
+					this._model.started = true;
+				}
+				else
+				{
+					if(!this._model.paused)
+					{
+						this._view.pause();
+						this._model.paused = true;
+					}
+					else
+					{
+						this._view.unpause();
+						this._model.paused = false;
+					}
+				}
 			}
 		}
 		
@@ -71,23 +85,18 @@
 		 * Called every frame
 		 */ 
 		private function _update(e:Event):void
-		{			
-			// scroll the camera
-			this._view.camera.incrementY(5);
-			
-			var collisions:Array = CollisionManager.getInstance().checkForCollisions();
-			/*if(!this._ignoreCollisions && collisions.length > 0)
+		{
+			if (!_model.paused)
 			{
-				this._ignoreCollisions = true;
-				this._collisionTimer.start();
+				// scroll the camera
+				this._view.camera.incrementY(5);
 				
-				this._view.player.increaseTemperature();
-			}*/
-			
-			if (collisions.length > 0) {
-				this._view.player.increaseTemperature();
+				var collisions:Array = CollisionManager.getInstance().checkForCollisions();
+				
+				if (collisions.length > 0) {
+					this._view.player.increaseTemperature();
+				}
 			}
-			
 			//this.cleanUp();
 		}
 		
