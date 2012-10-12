@@ -1,6 +1,8 @@
 package com.gamejam.datatypes
 {
 	// Flash imports
+	import com.gamejam.managers.LevelManager;
+	import com.gamejam.utils.normalise;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	
@@ -53,6 +55,13 @@ package com.gamejam.datatypes
 				}
 			}
 			else if(player.moveable) player.y += amount;			
+		}
+		
+		public function get progress():Number
+		{
+			var lm:LevelManager = LevelManager.getInstance();
+			trace("this.position.y: " + this.position.y + ", lm.currentLevel.length + 650: " + (lm.currentLevel.length + 650));
+			return normalise(this.position.y, 650, (lm.currentLevel.length + 650));
 		}
 		
 		public function get position():Point { return _position; }

@@ -5,6 +5,7 @@
 	import com.gamejam.display.TemperatureObject;
 	import com.gamejam.utils.map;
 	import com.gamejam.views.GameView;
+	import fl.motion.Color;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	/**
@@ -21,12 +22,15 @@
 		private var _view : GameView;
 		private var _difficulty : int;
 		
-		public function Level(_difficulty : int) 
+		private var _length : int;
+		
+		public function Level(pLength : int, pDifficulty : int) 
 		{
 			super();
 			trace("Level::Level");
 			this._init();
-			this._difficulty = _difficulty;
+			this._difficulty = pDifficulty;
+			this._length = pLength;
 			
 			this.attachGameObjects();
 			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
@@ -36,7 +40,7 @@
 		{
 			var cam : Camera = GameView.getInstance().camera;
 
-			if (cam.position.y >= this._bg.height)
+			if (cam.position.y >= this._length)
 			{
 				cam.paused = true;
 			}
@@ -44,7 +48,8 @@
 			if (!cam.paused) 
 			{
 				var progress_mc = GameView.getInstance().progressBar.progress_mc;
-				progress_mc.y = map(cam.position.y, 650, this._bg.height+650, -180, 140);
+				progress_mc.y = map(cam.progress, 0, 1, -180, 140);
+				_tintBackground(0xFFFFFF, cam.progress);
 			}
 		}
 		
@@ -74,7 +79,7 @@
 			addChildAt(this._starterCloud, GameView.LAYER_FOREGROUND);
 			
 			this._sea = new SeaFront();			
-			this._sea.y = this._bg.y + this._bg.height - this._sea.height;
+			this._sea.y = this._bg.y + this._length - this._sea.height;
 			addChildAt(this._sea, GameView.LAYER_FOREGROUND);
 		
 			var seaBehind = new SeaBehind();
@@ -87,7 +92,7 @@
 			for(var i = 0; i < 10; i++)
 			{
 				var xPos:Number = Math.random()*this._bg.width;
-				var yPos:Number = Math.random()*(this._bg.height-(this._sea.height*2 + this._view.stage.stageHeight*1.5));
+				var yPos:Number = Math.random()*(this._length-(this._sea.height*2 + this._view.stage.stageHeight*1.5));
 				yPos += this._view.stage.stageHeight*1.5;
 				
 				var cloud:Cloud = new Cloud();
@@ -103,7 +108,7 @@
 			for(var j = 0; j < 5; j++)
 			{
 				var xPos:Number = Math.random()*this._bg.width;
-				var yPos:Number = Math.random()*(this._bg.height-(this._sea.height*2 + this._view.stage.stageHeight*1.5));
+				var yPos:Number = Math.random()*(this._length-(this._sea.height*2 + this._view.stage.stageHeight*1.5));
 				yPos += this._view.stage.stageHeight*1.5;
 								
 				var hotTrail:TemperatureObject = new HotTrail();
@@ -113,5 +118,27 @@
 				addChildAt(hotTrail, GameView.LAYER_FOREGROUND);
 			}
 		}	
+		
+		private function _tintBackground(newColour:uint, percentage:Number):void
+		{
+			var cTint:Color = new Color();
+			cTint.setTint(newColour, percentage);
+			this._bg.transform.colorTransform = cTint;
+		}
+		
+		public function get length():int 
+		{
+			return _length;
+		}
+		
+		public function set length(value:int):void 
+		{
+			_length = value;
+		}
+		
+		public function get bg():MovieClip 
+		{
+			return _bg;
+		}
 	}
 }

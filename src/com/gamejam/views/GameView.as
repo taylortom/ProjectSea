@@ -85,7 +85,7 @@
 			this._player.position = playerPos;
 			this._player.moveable = false;
 			
-			LevelManager.getInstance().generateNewLevel(0);
+			LevelManager.getInstance().generateNewLevel(3000, 0);
 			
 			var intro:Sound = new MusicIntro();
 			SoundManager.getInstance().play(intro, 1.0, 5000);

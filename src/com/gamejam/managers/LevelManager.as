@@ -1,6 +1,7 @@
 package com.gamejam.managers 
 {
 	import com.gamejam.display.Level;
+	import fl.motion.Color;
 	/**
 	 * Stores level information
 	 * @author Kev Adsett
@@ -27,9 +28,9 @@ package com.gamejam.managers
 			return _instance;
 		}
 		
-		public function generateNewLevel(difficulty : int):Level
+		public function generateNewLevel(length: int, difficulty : int):Level
 		{
-			_currentLevel = new Level(difficulty);
+			_currentLevel = new Level(length, difficulty);
 			return _currentLevel
 		}
 		
@@ -37,7 +38,6 @@ package com.gamejam.managers
 		{
 			return _currentLevel;
 		}
-		
 	}
 
 }
