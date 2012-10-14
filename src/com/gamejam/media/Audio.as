@@ -34,7 +34,7 @@ package com.gamejam.media
 			if(!this._isPlaying)
 			{
 				this._channel = this._sound.play();
-				this._channel.addEventListener(Event.SOUND_COMPLETE, this.onSoundComplete);
+				this._channel.addEventListener(Event.SOUND_COMPLETE, this.onSoundCompleted);
 				this._isPlaying = true;
 			}
 		}
@@ -87,7 +87,7 @@ package com.gamejam.media
 			this._channel.soundTransform = this._transform;	
 		}
 		
-		private function onSoundComplete(e:Event):void
+		private function onSoundCompleted(e:Event):void
 		{
 			// trace("Audio.onSoundComplete");
 		}

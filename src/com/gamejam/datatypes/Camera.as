@@ -21,47 +21,18 @@ package com.gamejam.datatypes
 		
 		public function Camera()
 		{
-			this._position = new Point(0, 650);
+			this._position = new Point(0, 0);
 		}
 		
-		public function incrementX(amount:Number):void 
-		{ 
-			var gos:Array = GameView.getInstance().gameObjects;
-			
-			if (!_paused)
-			{
-				this._position.x += amount;
-				for(var i = 0; i < gos.length; i++)
-				{
-					var go:GameObject = gos[i];
-					go.x -= amount;
-				}
-			}
-			else GameView.getInstance().player.x += amount;
-		}
-
-		public function incrementY(amount:Number):void 
-		{ 
-			var gos:Array = GameView.getInstance().gameObjects;
-			var player:Player = GameView.getInstance().player;
-			
-			if (!_paused)
-			{
-				this._position.y += amount;
-				for(var i = 0; i < gos.length; i++)
-				{
-					var go:GameObject = gos[i];
-					go.y -= amount;
-				}
-			}
-			else if(player.moveable) player.y += amount;			
-		}
+		public function incrementX(amount:Number):void { if (!_paused) this._position.x += amount; }
+		public function incrementY(amount:Number):void { if (!_paused) this._position.y += amount;}
 		
 		public function get progress():Number
 		{
-			var lm:LevelManager = LevelManager.getInstance();
+			/*var lm:LevelManager = LevelManager.getInstance();
 			trace("this.position.y: " + this.position.y + ", lm.currentLevel.length + 650: " + (lm.currentLevel.length + 650));
-			return normalise(this.position.y, 650, (lm.currentLevel.length + 650));
+			return normalise(this.position.y, 650, (lm.currentLevel.length + 650));*/
+			return 0;
 		}
 		
 		public function get position():Point { return _position; }

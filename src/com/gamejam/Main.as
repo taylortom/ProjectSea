@@ -87,10 +87,7 @@
 		private function _update(e:Event):void
 		{
 			if (!_model.paused)
-			{
-				// scroll the camera
-				this._view.camera.incrementY(5);
-				
+			{				
 				var collisions:Array = CollisionManager.getInstance().checkForCollisions();
 				
 				if (collisions.length > 0) {
