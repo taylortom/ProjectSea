@@ -46,12 +46,9 @@
 				cam.incrementY(5);
 			}
 			
-			/*if (!cam.paused) 
-			{
-				var progress_mc = GameView.getInstance().progressBar.progress_mc;
-				progress_mc.y = map(cam.progress, 0, 1, -180, 140);
-				_tintBackground(0xFFFFFF, cam.progress);
-			}*/
+			var progress_mc = GameView.getInstance().progressBar.progress_mc;
+			progress_mc.y = map(GameView.getInstance().player.progress, 0, 1, -180, 140);
+			_tintBackground(0xdaecf9, GameView.getInstance().player.progress);
 		}
 		
 		private function _init()
