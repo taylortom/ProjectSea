@@ -24,6 +24,12 @@ package com.gamejam.datatypes
 			this._position = new Point(0, 0);
 		}
 		
+		public function resetPosition()
+		{
+			this._position.x = 0;
+			this._position.y = 0;
+		}
+		
 		public function incrementX(amount:Number):void { if (!_paused) this._position.x += amount; }
 		public function incrementY(amount:Number):void { if (!_paused) this._position.y += amount;}
 		

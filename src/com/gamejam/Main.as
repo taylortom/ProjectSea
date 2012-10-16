@@ -67,17 +67,25 @@
 				}
 				else
 				{
-					if(!this._model.paused)
-					{
-						this._view.pause();
-						this._model.paused = true;
+					if(!this._model.finished){
+						if(!this._model.paused)
+						{
+							this._view.pause();
+							this._model.paused = true;
+						}
+						else
+						{
+							this._view.unpause();
+							this._model.paused = false;
+						}
 					}
 					else
 					{
-						this._view.unpause();
-						this._model.paused = false;
+						GameView.getInstance().resetCurrentLevel();
 					}
 				}
+				trace("started: " + this._model.started + ", paused: " + this._model.paused + ", finished: " + this._model.finished);
+
 			}
 		}
 		

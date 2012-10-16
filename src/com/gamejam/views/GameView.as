@@ -78,14 +78,11 @@
 		public function startNewGame():void
 		{
 			var playerPos:Point = new Point();
-			playerPos.x = _stage.stageWidth / 2;
-			playerPos.y = 230;			
 			
 			this._player = new Player();
-			this._player.position = playerPos;
 			this._player.moveable = false;
 			
-			LevelManager.getInstance().generateNewLevel(6000, 0);
+			LevelManager.getInstance().generateNewLevel(3000, 0);
 			
 			var intro:Sound = new MusicIntro();
 			SoundManager.getInstance().play(intro, 1.0, 5000);
@@ -121,10 +118,16 @@
 			this._player.moveable = true;
 		}
 		
+		public function resetCurrentLevel()
+		{
+			this._mainCam.resetPosition();
+			this._player.resetPosition();
+			GameModel.getInstance().finished = false;
+		}
 		/**
 		 * Public getters/setters
-		 */
-		 
+		*/
+		
 		public function get camera():Camera { return this._mainCam; }
 		
 		public function get gameObjects():Array { return this._gameObjects; }
