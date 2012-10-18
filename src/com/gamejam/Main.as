@@ -38,10 +38,18 @@
 			
 			_view.startNewGame();
 			
-			// add the level 
-			addChild(LevelManager.getInstance().currentLevel);
+			stage.addEventListener(Event.ENTER_FRAME, loop);		
 			
 			stage.addEventListener(KeyboardEvent.KEY_UP, this.onKeyboardUp);
+		}
+		
+		private function loop(e:Event)
+		{
+			if (LevelManager.getInstance().currentLevel != null)
+			{
+				addChild(LevelManager.getInstance().currentLevel);
+				stage.removeEventListener(Event.ENTER_FRAME, loop);
+			}
 		}
 		
 		private function onKeyboardUp(e:KeyboardEvent):void

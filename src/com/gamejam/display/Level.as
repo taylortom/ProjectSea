@@ -3,12 +3,16 @@
 	import com.gamejam.datatypes.Camera;
 	import com.gamejam.display.Cloud;
 	import com.gamejam.display.TemperatureObject;
+	import com.gamejam.managers.LevelManager;
 	import com.gamejam.models.GameModel;
+	import com.gamejam.models.LevelModel;
 	import com.gamejam.utils.map;
 	import com.gamejam.views.GameView;
 	import fl.motion.Color;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	/**
 	 * Stores level set up, including obstacles, start and end
 	 * @author Kev Adsett
@@ -25,14 +29,23 @@
 		
 		private var _length : int;
 		
-		public function Level(pLength : int, pDifficulty : int) 
+		private var _model : LevelModel;
+		
+		public function Level(pModel:LevelModel = null, pLength : int = 4000, pDifficulty : int = 0) 
 		{
+			if (pModel == null)
+			{
+				this._model = new LevelModel(new Array());
+			}
+			else
+			{
+				this._model = pModel;
+			}
 			super();
 			trace("Level::Level");
 			this._init();
 			this._difficulty = pDifficulty;
 			this._length = pLength;
-			
 			this.attachGameObjects();
 			this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}

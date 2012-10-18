@@ -1,7 +1,11 @@
 package com.gamejam.managers 
 {
 	import com.gamejam.display.Level;
+	import com.gamejam.models.LevelModel;
 	import fl.motion.Color;
+	import flash.events.Event;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	/**
 	 * Stores level information
 	 * @author Kev Adsett
@@ -30,13 +34,29 @@ package com.gamejam.managers
 		
 		public function generateNewLevel(length: int, difficulty : int):Level
 		{
-			_currentLevel = new Level(length, difficulty);
-			return _currentLevel
+			_currentLevel = new Level(null, length, difficulty);
+			return _currentLevel;
 		}
 		
 		public function get currentLevel():Level 
 		{
 			return _currentLevel;
+		}
+		
+		public function set currentLevel(value:Level):void 
+		{
+			_currentLevel = value;
+		}
+		
+		public function loadLevel(levelNumber: int):void
+		{
+			var urlLoader : URLLoader = new URLLoader(new URLRequest("levels/" + levelNumber + ".lvl"));
+			urlLoader.addEventListener(Event.COMPLETE, this.onLevelLoaded);
+		}
+		
+		private function onLevelLoaded(e:Event):void 
+		{
+			this._currentLevel = new Level( new LevelModel(e.target.data.split(/\n/)));
 		}
 	}
 
