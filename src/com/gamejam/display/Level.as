@@ -35,14 +35,13 @@
 		{
 			if (pModel == null)
 			{
-				this._model = new LevelModel(new Array());
+				this._model = new LevelModel("");
 			}
 			else
 			{
 				this._model = pModel;
 			}
 			super();
-			trace("Level::Level");
 			this._init();
 			this._difficulty = pDifficulty;
 			this._length = pLength;
@@ -115,18 +114,27 @@
 				front = !front;
 			}
 			
-			// some hot trails			
-			for(var j = 0; j < 5; j++)
-			{
-				var hotTrailXPos:Number = Math.random()*this._bg.width;
-				var hotTrailYPos:Number = Math.random()*(this._length-(this._sea.height*2 + this._view.stage.stageHeight*1.5));
-				hotTrailYPos += this._view.stage.stageHeight*1.5;
-								
-				var hotTrail:TemperatureObject = new HotTrail();
-				hotTrail.position.x = hotTrailXPos;
-				hotTrail.position.y = hotTrailYPos;
+			var structure:Array = this._model.structure;
 			
-				addChildAt(hotTrail, GameView.LAYER_FOREGROUND);
+			for (var r = 0; r < this._model.noRows; r++)
+			{
+				for (var c = 0; c < this._model.noCols; c++)
+				{
+					trace("structure[" + r + "][" + c + "]: " + structure[r][c]);
+					if (structure[r][c] == 1)
+					{
+						var hotTrailXPos:Number = map(c, 0, this._model.noCols - 1, 0, this._view.stage.stageWidth);
+						trace("this._sea.position.y: " + this._sea.position.y);
+						var hotTrailYPos:Number = map(r, 0, this._model.noRows - 1, this._view.stage.stageHeight, this._length - this._sea.height*2);
+						trace("hotTrailXPos: " + hotTrailXPos, "hotTrailYPos: " + hotTrailYPos);
+						
+						var hotTrail:TemperatureObject = new HotTrail();
+						hotTrail.position.x = hotTrailXPos;
+						hotTrail.position.y = hotTrailYPos;
+						
+						addChildAt(hotTrail, GameView.LAYER_FOREGROUND);
+					}
+				}
 			}
 		}	
 		

@@ -56,7 +56,7 @@ package com.gamejam.managers
 		
 		private function onLevelLoaded(e:Event):void 
 		{
-			this._currentLevel = new Level( new LevelModel(e.target.data.split(/\n/)));
+			this._currentLevel = new Level( new LevelModel(e.target.data));
 		}
 	}
 
