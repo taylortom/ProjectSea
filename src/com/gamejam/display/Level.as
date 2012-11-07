@@ -120,13 +120,13 @@
 			{
 				for (var c = 0; c < this._model.noCols; c++)
 				{
-					trace("structure[" + r + "][" + c + "]: " + structure[r][c]);
+					//trace("structure[" + r + "][" + c + "]: " + structure[r][c]);
 					if (structure[r][c] == 1)
 					{
 						var hotTrailXPos:Number = map(c, 0, this._model.noCols - 1, 0, this._view.stage.stageWidth);
-						trace("this._sea.position.y: " + this._sea.position.y);
+ 	 					//trace("this._sea.position.y: " + this._sea.position.y);
 						var hotTrailYPos:Number = map(r, 0, this._model.noRows - 1, this._view.stage.stageHeight, this._length - this._sea.height*2);
-						trace("hotTrailXPos: " + hotTrailXPos, "hotTrailYPos: " + hotTrailYPos);
+						//trace("hotTrailXPos: " + hotTrailXPos, "hotTrailYPos: " + hotTrailYPos);
 						
 						var hotTrail:TemperatureObject = new HotTrail();
 						hotTrail.isHot = true;
@@ -139,7 +139,7 @@
 					{
 						var coldTrailXPos:Number = map(c, 0, this._model.noCols - 1, 0, this._view.stage.stageWidth);
 						var coldTrailYPos:Number = map(r, 0, this._model.noRows - 1, this._view.stage.stageHeight, this._length - this._sea.height*2);
-						trace("coldTrailXPos: " + coldTrailXPos, "coldTrailYPos: " + coldTrailYPos);
+						//trace("coldTrailXPos: " + coldTrailXPos, "coldTrailYPos: " + coldTrailYPos);
 						
 						var coldTrail:TemperatureObject = new ColdTrail();
 						coldTrail.isHot = false;
