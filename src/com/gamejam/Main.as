@@ -1,6 +1,7 @@
 ﻿package com.gamejam
 {
 	// Flash imports
+	import com.gamejam.display.TemperatureObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -107,7 +108,8 @@
 				var collisions:Array = CollisionManager.getInstance().checkForCollisions();
 				
 				if (collisions.length > 0) {
-					this._view.player.increaseTemperature();
+					var collider:TemperatureObject = TemperatureObject(collisions[0]);
+					collider.isHot ? this._view.player.increaseTemperature(): this._view.player.decreaseTemperature();
 				}
 			}
 			//this.cleanUp();
