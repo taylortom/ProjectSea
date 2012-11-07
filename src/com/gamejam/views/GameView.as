@@ -6,6 +6,7 @@
 	import flash.display.Sprite;
 	import flash.display.MovieClip;
 	import flash.display.Stage;
+	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.geom.Point;
 	
@@ -13,6 +14,7 @@
 	import com.gamejam.display.TemperatureGauge;
 	import com.gamejam.managers.LevelManager;
 	import com.gamejam.managers.SoundManager;
+	import com.gamejam.media.Audio;
 	import com.gamejam.datatypes.Camera;
 	import com.gamejam.display.GameObject;
 	
@@ -86,8 +88,8 @@
 			
 			LevelManager.getInstance().generateNewLevel(4000);
 			
-			var intro:Sound = new MusicIntro();
-			SoundManager.getInstance().play(intro, 1.0, 5000);
+			var introAudio:Audio = SoundManager.getInstance().play(new MusicIntro(), 1.0, 5000);
+			introAudio.channel.addEventListener(Event.SOUND_COMPLETE, this.onIntroComplete);
 		}
 		
 		public function endGame(state:String):void
@@ -143,6 +145,13 @@
 			this._mainCam.resetPosition();
 			this._player.resetPosition();
 			GameModel.getInstance().finished = false;
+		}
+		
+		private function onIntroComplete(e:Event):void
+		{
+			trace("GameView.onIntroComplete");
+			
+			SoundManager.getInstance().play(new MusicLoop(), 1.0, 1000, true);
 		}
 		
 		/**

@@ -17,16 +17,18 @@ package com.gamejam.media
 		private var _channel:SoundChannel = new SoundChannel();
 		private var _transform = new SoundTransform();
 		
+		private var _loop:Boolean;
 		private var _volumeIncrement:Number;
 		private var _isPlaying:Boolean = false;
 		
 		var _fadeInTimer:Timer;
 		var _fadeOutTimer:Timer;
 				
-		public function Audio(soundToAdd:Sound)
+		public function Audio(soundToAdd:Sound, loop:Boolean = false)
 		{
 			super();
-			this._sound = soundToAdd;			
+			this._sound = soundToAdd;	
+			this._loop = loop;		
 		}
 		
 		public function start():void
@@ -89,7 +91,10 @@ package com.gamejam.media
 		
 		private function onSoundCompleted(e:Event):void
 		{
-			// trace("Audio.onSoundComplete");
+			trace("Audio.onSoundComplete: " + this._loop);
+			
+			this._isPlaying = false;
+			if(this._loop) this.start();
 		}
 		
 		public function get volume():Number { return this._transform.volume; }

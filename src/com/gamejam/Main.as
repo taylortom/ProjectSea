@@ -43,7 +43,7 @@
 			stage.addEventListener(Event.ENTER_FRAME, loop);		
 			
 			stage.addEventListener(KeyboardEvent.KEY_UP, this.onKeyboardUp);
-			stage.addEventListener(MouseEvent.RIGHT_CLICK, function() { });
+			//stage.addEventListener(MouseEvent.RIGHT_CLICK, function() { });
 			
 		}
 		
@@ -73,7 +73,7 @@
 					
 					var musicLoop:Sound = new MusicLoop();
 					var sm:SoundManager = SoundManager.getInstance();
-					sm.crossfade(musicLoop, 3000);
+					sm.crossfade(musicLoop, 3000, true);
 					
 					this._model.started = true;
 				}
