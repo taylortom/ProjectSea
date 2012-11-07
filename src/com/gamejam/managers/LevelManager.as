@@ -32,9 +32,9 @@ package com.gamejam.managers
 			return _instance;
 		}
 		
-		public function generateNewLevel(length: int, difficulty : int):Level
+		public function generateNewLevel(length: int):Level
 		{
-			_currentLevel = new Level(null, length, difficulty);
+			this._currentLevel = new Level( new LevelModel(""), length);
 			return _currentLevel;
 		}
 		
