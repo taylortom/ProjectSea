@@ -33,6 +33,8 @@
 		
 		private var _player:Player;
 		private var _tempGauge:TemperatureGauge;
+		private var _gameOverTitle:MovieClip;
+		private var _gameOverBG:MovieClip;
 		
 		public static const LAYER_FRAME: Number = 4;
 		public static const LAYER_FOREGROUND: Number = 3;
@@ -88,6 +90,21 @@
 			SoundManager.getInstance().play(intro, 1.0, 5000);
 		}
 		
+		public function endGame(state:String):void
+		{
+			trace("GameView.endGame: " + state + " -- (" + this.stage.width + "x" + this.stage.height);
+			
+			this._gameOverTitle = (state == "frozen") ? new GameOverCold() : new GameOverHot();
+			this._gameOverBG = new screenlock();
+			
+			// stage dimensions wrong, so hard coding. TEMPORARY
+			this._gameOverTitle.x = 479.5;
+			this._gameOverTitle.y = 325;
+			
+			this._stage.addChild(this._gameOverBG);
+			this._stage.addChild(this._gameOverTitle);
+		}
+		
 		public function setupGUI():void
 		{
 			//trace("GameView::setupGUI");
@@ -120,10 +137,14 @@
 		
 		public function resetCurrentLevel()
 		{
+			if(this._gameOverBG != null) this.stage.removeChild(this._gameOverBG);
+			if(this._gameOverTitle != null) this.stage.removeChild(this._gameOverTitle);
+		
 			this._mainCam.resetPosition();
 			this._player.resetPosition();
 			GameModel.getInstance().finished = false;
 		}
+		
 		/**
 		 * Public getters/setters
 		*/

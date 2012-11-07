@@ -5,6 +5,7 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import flash.utils.Timer;
@@ -42,6 +43,8 @@
 			stage.addEventListener(Event.ENTER_FRAME, loop);		
 			
 			stage.addEventListener(KeyboardEvent.KEY_UP, this.onKeyboardUp);
+			stage.addEventListener(MouseEvent.RIGHT_CLICK, function() { });
+			
 		}
 		
 		private function loop(e:Event)
