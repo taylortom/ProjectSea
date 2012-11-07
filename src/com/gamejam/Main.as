@@ -106,7 +106,7 @@
 			if (!_model.paused)
 			{				
 				var collisions:Array = CollisionManager.getInstance().checkForCollisions();
-				
+				trace("collisions.length: " + collisions.length);
 				if (collisions.length > 0) {
 					var collider:TemperatureObject = TemperatureObject(collisions[0]);
 					collider.isHot ? this._view.player.increaseTemperature(): this._view.player.decreaseTemperature();
